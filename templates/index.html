@@ -6,20 +6,20 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #000000, #1c1c1c);
+      background: linear-gradient(to bottom, #f3f5f3, #dce3dc);
       margin: 0;
       padding: 0;
-      color: #f2f2f2;
+      color: #2e3b2f;
     }
 
     .container {
       max-width: 600px;
-      background-color: #222222;
-      color: #f2f2f2;
+      background-color: #f1f5f1;
+      color: #2e3b2f;
       margin: 60px auto;
       padding: 30px;
       border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(255, 255, 255, 0.05);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
       transition: transform 0.3s ease;
     }
 
@@ -29,15 +29,15 @@
 
     h1 {
       text-align: center;
-      color: #4877ef;
+      color: #6c8b74;
       font-size: 30px;
       margin-bottom: 20px;
     }
 
     .instructions {
-      background-color: #333333;
+      background-color: #e6ece6;
       padding: 15px;
-      border-left: 5px solid #4877ef;
+      border-left: 5px solid #6c8b74;
       border-radius: 10px;
       font-size: 14px;
       margin-bottom: 20px;
@@ -49,25 +49,27 @@
       padding: 12px;
       font-size: 16px;
       border-radius: 8px;
-      border: 1px solid #555555;
+      border: 1px solid #aabbaa;
       resize: vertical;
       min-height: 120px;
       margin-top: 10px;
-      background-color: #1c1c1c;
-      color: #ffffff;
+      background-color: #f9fbf9;
+      color: #2e3b2f;
       transition: border-color 0.3s ease;
     }
+
     textarea::placeholder {
-      color: #999999;
+      color: #a0a0a0;
       font-style: italic;
     }
+
     textarea:focus {
-      border-color: #4877ef;
+      border-color: #6c8b74;
       outline: none;
     }
 
     input[type="submit"], button.clear-btn {
-      background-color: #4877ef;
+      background-color: #6c8b74;
       color: #ffffff;
       border: none;
       padding: 12px 20px;
@@ -81,7 +83,7 @@
     }
 
     input[type="submit"]:hover, button.clear-btn:hover {
-      background-color: #3a5fd1;
+      background-color: #5c7a66;
     }
 
     input[type="submit"]:active, button.clear-btn:active {
@@ -101,18 +103,18 @@
       font-weight: bold;
       padding: 16px;
       border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(72, 119, 239, 0.5);
+      box-shadow: 0 4px 15px rgba(108, 139, 116, 0.4);
       opacity: 0;
       animation: fadeIn 0.6s forwards;
     }
 
     .safe {
-      background-color: #2e7d32;
+      background-color: #88b388;
       color: #ffffff;
     }
 
     .phishing {
-      background-color: #c62828;
+      background-color: #b76d68;
       color: #ffffff;
     }
 
@@ -126,13 +128,13 @@
       text-align: center;
       margin-top: 30px;
       font-size: 13px;
-      color: #888888;
+      color: #6b6b6b;
       user-select: none;
     }
 
     .loading {
       text-align: center;
-      color: #4877ef;
+      color: #6c8b74;
       font-size: 16px;
       margin-top: 10px;
       display: none;
