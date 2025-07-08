@@ -2,12 +2,10 @@ import os
 from flask import Flask
 from app.routes import routes
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="app/templates")
 
 # Allow file uploads up to 5MB (adjust as needed)
-app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024  
-
-# Restrict file types later using file extension check if needed
+app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
 
 app.register_blueprint(routes)
 
