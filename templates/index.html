@@ -3,8 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <title>Detectra</title>
-</head>
-</html>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     /* Dark Mode colors (default) */
@@ -59,26 +57,22 @@
       margin-bottom: 20px;
     }
 
-    /* Dark/Light mode toggle button */
-  #modeToggle {
-  display: block;
-  margin: 0 auto 20px auto;
-  padding: 6px 14px;
-  font-size: 14px;
-  cursor: pointer;
-  background-color: var(--accent);
-  border: none;
-  border-radius: 6px;
-  color: var(--bg);
-  font-weight: 600;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
+    /* Theme toggle button styles */
+    #modeToggle {
+      font-size: 22px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      margin: 0 auto 20px auto;
+      display: block;
+      color: var(--accent);
+      transition: transform 0.2s ease, color 0.3s ease;
+    }
 
-  #modeToggle:hover {
-  background-color: var(--highlight);
-  color: var(--text);
-}
-
+    #modeToggle:hover {
+      transform: scale(1.2);
+      color: var(--highlight);
+    }
 
     /* === Tabs styles === */
     .tabs {
@@ -287,81 +281,82 @@
   </style>
 
   <script>
-  function openTab(event, tabName) {
-    const tabContents = document.querySelectorAll(".tab-content");
-    const tabs = document.querySelectorAll(".tab");
+    function openTab(event, tabName) {
+      const tabContents = document.querySelectorAll(".tab-content");
+      const tabs = document.querySelectorAll(".tab");
 
-    tabContents.forEach(tc => tc.classList.remove("active"));
-    tabs.forEach(t => t.classList.remove("active"));
+      tabContents.forEach(tc => tc.classList.remove("active"));
+      tabs.forEach(t => t.classList.remove("active"));
 
-    document.getElementById(tabName).classList.add("active");
-    event.currentTarget.classList.add("active");
+      document.getElementById(tabName).classList.add("active");
+      event.currentTarget.classList.add("active");
 
-    // Save active tab to localStorage
-    localStorage.setItem("activeTab", tabName);
-  }
-
-  function handleFormSubmit() {
-    document.getElementById("loading").style.display = "block";
-    document.getElementById("resultBox").innerHTML = "";
-
-    // Save active tab before submit
-    const activeTab = document.querySelector(".tab.active");
-    if (activeTab) {
-      const tabName = activeTab.getAttribute("onclick").match(/'([^']+)'/)[1];
+      // Save active tab to localStorage
       localStorage.setItem("activeTab", tabName);
     }
-  }
 
-  function clearInput() {
-    document.querySelector('textarea[name="email_text"]').value = "";
-    document.querySelector('input[type="file"]').value = "";
-    document.getElementById("fileLabelText").innerText = "📎 Click to upload or drag a file here";
-    document.getElementById("resultBox").innerHTML = "";
-    document.getElementById("loading").style.display = "none";
-  }
+    function handleFormSubmit() {
+      document.getElementById("loading").style.display = "block";
+      document.getElementById("resultBox").innerHTML = "";
 
-  function showFileName(input) {
-    const labelText = document.getElementById("fileLabelText");
-    labelText.innerText = input.files[0]
-      ? `✅ Attached: ${input.files[0].name}`
-      : "📎 Click to upload or drag a file here";
-  }
-
-  // Load active tab and mode on page load
-  window.onload = function () {
-    const savedTab = localStorage.getItem("activeTab") || "Project Overview";
-    const tabs = document.querySelectorAll(".tab");
-    tabs.forEach(tab => {
-      if (tab.getAttribute("onclick").includes(savedTab)) {
-        tab.click();
+      // Save active tab before submit
+      const activeTab = document.querySelector(".tab.active");
+      if (activeTab) {
+        const tabName = activeTab.getAttribute("onclick").match(/'([^']+)'/)[1];
+        localStorage.setItem("activeTab", tabName);
       }
-    });
-
-    // Dark mode toggle
-    const toggleBtn = document.getElementById("modeToggle");
-    const savedMode = localStorage.getItem("theme");
-    if (savedMode === "light") {
-      document.body.classList.add("light-mode");
-      toggleBtn.textContent = "Switch to Dark Mode";
     }
 
-    toggleBtn.addEventListener("click", () => {
-      document.body.classList.toggle("light-mode");
-      const isLight = document.body.classList.contains("light-mode");
-      toggleBtn.textContent = isLight ? "Switch to Dark Mode" : "Switch to Light Mode";
-      localStorage.setItem("theme", isLight ? "light" : "dark");
-    });
-  };
-</script>
+    function clearInput() {
+      document.querySelector('textarea[name="email_text"]').value = "";
+      document.querySelector('input[type="file"]').value = "";
+      document.getElementById("fileLabelText").innerText = "📎 Click to upload or drag a file here";
+      document.getElementById("resultBox").innerHTML = "";
+      document.getElementById("loading").style.display = "none";
+    }
 
+    function showFileName(input) {
+      const labelText = document.getElementById("fileLabelText");
+      labelText.innerText = input.files[0]
+        ? `✅ Attached: ${input.files[0].name}`
+        : "📎 Click to upload or drag a file here";
+    }
+
+    // Load active tab and mode on page load
+    window.onload = function () {
+      const savedTab = localStorage.getItem("activeTab") || "Project Overview";
+      const tabs = document.querySelectorAll(".tab");
+      tabs.forEach(tab => {
+        if (tab.getAttribute("onclick").includes(savedTab)) {
+          tab.click();
+        }
+      });
+
+      // Theme toggle
+      const toggleBtn = document.getElementById("modeToggle");
+      const savedMode = localStorage.getItem("theme");
+      if (savedMode === "light") {
+        document.body.classList.add("light-mode");
+        toggleBtn.textContent = "🌞";
+      } else {
+        toggleBtn.textContent = "🌙";
+      }
+
+      toggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("light-mode");
+        const isLight = document.body.classList.contains("light-mode");
+        toggleBtn.textContent = isLight ? "🌞" : "🌙";
+        localStorage.setItem("theme", isLight ? "light" : "dark");
+      });
+    };
+  </script>
 </head>
 <body>
   <div class="container">
     <h1>Detectra</h1>
 
-    <!-- Dark mode toggle button -->
-    <button id="modeToggle" aria-label="Toggle dark or light mode">Switch to Light Mode</button>
+    <!-- Theme toggle button -->
+    <button id="modeToggle" aria-label="Toggle theme" title="Toggle theme">🌙</button>
 
     <!-- Tabs -->
     <div class="tabs" role="tablist" aria-label="Project Sections">
@@ -373,34 +368,34 @@
     <!-- Tab Contents -->
     <div id="Project Overview" class="tab-content" role="tabpanel" aria-labelledby="aboutProject-tab">
       <p>
-        <strong>About the Detectra Project:</strong><br>
-      <li> This project, Detectra, is based on recent research about using artificial intelligence (AI) to detect phishing attacks. Phishing is a type of cyberattack that tricks people into giving away private information by pretending to be someone they trust. These attacks are becoming more advanced and harder to catch.</li>
-       <p></p>
-      <li> The research shows that traditional security tools like firewalls and antivirus are not enough to stop these attacks. That’s why the study suggests using AI, especially large language models like GPT-4, to create a browser plug-in that can find phishing attempts in real time and explain why something is suspicious. It also helps teach users how to stay safe.</li>
-       <p></p>
-      <li> Our prototype follows this idea by building a simple tool that can analyze email text and attachments for phishing signs. It uses machine learning models to give accurate results quickly and clearly. The goal is to help both technical and non-technical users understand the risks and protect themselves better.</li>
-       <p></p>
+        <strong>About the Detectra Project:</strong><br />
+        <li>This project, Detectra, is based on recent research about using artificial intelligence (AI) to detect phishing attacks. Phishing is a type of cyberattack that tricks people into giving away private information by pretending to be someone they trust. These attacks are becoming more advanced and harder to catch.</li>
+        <p></p>
+        <li>The research shows that traditional security tools like firewalls and antivirus are not enough to stop these attacks. That’s why the study suggests using AI, especially large language models like GPT-4, to create a browser plug-in that can find phishing attempts in real time and explain why something is suspicious. It also helps teach users how to stay safe.</li>
+        <p></p>
+        <li>Our prototype follows this idea by building a simple tool that can analyze email text and attachments for phishing signs. It uses machine learning models to give accurate results quickly and clearly. The goal is to help both technical and non-technical users understand the risks and protect themselves better.</li>
+        <p></p>
       </p>
     </div>
 
     <div id="Our Team" class="tab-content" role="tabpanel" aria-labelledby="teamContribution-tab">
       <p><strong>Team Contributions:</strong></p>
       <ul>
-        <li> <strong> Dr. Lei Chen: </strong> </li>
+        <li><strong>Dr. Lei Chen:</strong></li>
         <p></p>
-        <li> <strong> Han Le: </strong> an undergraduate Information Technology student at Georgia Southern University completing a Bachelor’s degree through the Accelerated Bachelor to Master (ABM) track, focusing on Cybersecurity. Passionate about digital security and eager to make a meaningful impact in the field. </li>
+        <li><strong>Han Le:</strong> an undergraduate Information Technology student at Georgia Southern University completing a Bachelor’s degree through the Accelerated Bachelor to Master (ABM) track, focusing on Cybersecurity. Passionate about digital security and eager to make a meaningful impact in the field.</li>
         <p></p>
-        <li> <strong> Abdulrazaq Mamud: </strong> a dedicated IT professional with over six years of industry experience and currently pursuing Master of Science in Information Technology at Georgia Southern University, with a focus on security and cloud computing. </li>
+        <li><strong>Abdulrazaq Mamud:</strong> a dedicated IT professional with over six years of industry experience and currently pursuing Master of Science in Information Technology at Georgia Southern University, with a focus on security and cloud computing.</li>
         <p></p>
-        <li> <strong> Kamryx Davis: </strong> a graduate student at Georgia Southern University pursuing a Master of Science in Electrical and Computer Engineering, with an interest in wearable technology and smart fabrics. Hobbies include the arts, tennis, and video games. </li>
+        <li><strong>Kamryx Davis:</strong> a graduate student at Georgia Southern University pursuing a Master of Science in Electrical and Computer Engineering, with an interest in wearable technology and smart fabrics. Hobbies include the arts, tennis, and video games.</li>
       </ul>
     </div>
 
     <div id="Detection Tool" class="tab-content" role="tabpanel" aria-labelledby="tool-tab">
       <div class="instructions">
-        <strong>How to use:</strong><br>
-        1. Paste the email text below.<br>
-        2. Attach the email file (optional). <br>
+        <strong>How to use:</strong><br />
+        1. Paste the email text below.<br />
+        2. Attach the email file (optional). <br />
         3. Click "Analyze" to scan for phishing threats.
       </div>
 
@@ -409,14 +404,19 @@
       <form method="post" enctype="multipart/form-data" onsubmit="handleFormSubmit()">
         <div class="form-section">
           <label for="email_text" class="form-label">Email Content</label>
-          <textarea name="email_text" id="email_text" rows="10" placeholder="Paste your email content here...">{{ request.form.email_text }}</textarea>
+          <textarea
+            name="email_text"
+            id="email_text"
+            rows="10"
+            placeholder="Paste your email content here..."
+          >{{ request.form.email_text }}</textarea>
         </div>
 
         <div class="form-section">
           <label for="fileInput" class="form-label">Attachment (Optional)</label>
           <div class="file-card" onclick="document.getElementById('fileInput').click()">
             <span id="fileLabelText">📎 Click to upload or drag a file here</span>
-            <input type="file" id="fileInput" name="attachment" onchange="showFileName(this)">
+            <input type="file" id="fileInput" name="attachment" onchange="showFileName(this)" />
           </div>
         </div>
 
@@ -430,20 +430,20 @@
 
       <div id="resultBox">
         {% if result %}
-          <div class="result {% if result == 'Phishing' %}phishing{% else %}safe{% endif %}">
-            {% if result == 'Phishing' %}
-              ⚠️ Detected: {{ result }}
-            {% else %}
-              ✅ Safe: {{ result }}
-            {% endif %}
-          </div>
+        <div class="result {% if result == 'Phishing' %}phishing{% else %}safe{% endif %}">
+          {% if result == 'Phishing' %}
+          ⚠️ Detected: {{ result }}
+          {% else %}
+          ✅ Safe: {{ result }}
+          {% endif %}
+        </div>
         {% endif %}
       </div>
     </div>
   </div>
 
   <div class="footer">
-    <strong> The Proxies </strong> | &copy; 2025
+    <strong>The Proxies</strong> | &copy; 2025
   </div>
 </body>
 </html>
