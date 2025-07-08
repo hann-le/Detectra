@@ -1,7 +1,11 @@
 # app/__init__.py
-
 from flask import Flask
 
-app = Flask(__name__, template_folder="app/templates")
+def create_app():
+    app = Flask(__name__, template_folder="templates")
 
-from app import routes  # import routes AFTER app is created
+    # Register your blueprint
+    from app.routes import routes
+    app.register_blueprint(routes)
+
+    return app
